@@ -1,0 +1,8 @@
+{
+  "snapshot": "2026-09-29",
+  "sha256": {
+    "sources/VinaEpKim.glyphs": "b0d354049dbbbfe026fab541f4842b5ddc4f90a98f8e15e62494786cf16394c9",
+    "fonts/variable/VinaEpKim-VF.ttf": "7374cc8e85ee5a55f22cd3ef5287b91a733f31fc37f684dbe2c39cf58456b915",
+    "fonts/web/VinaEpKim-VF.woff2": "3ef583ab59ee8c04cb44fc1032ca1ed4e7285ca49f2329e68e9076c92ed73f8e"
+  }
+}

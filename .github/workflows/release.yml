@@ -1,0 +1,23 @@
+name: Font release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify approved files
+        run: python3 scripts/verify_release.py
+      - name: Prepare downloads
+        run: |
+          mkdir dist
+          cp fonts/variable/VinaEpKim-VF.ttf fonts/web/VinaEpKim-VF.woff2 scripts/vina-font dist/
+          cd dist
+          sha256sum VinaEpKim-VF.ttf VinaEpKim-VF.woff2 vina-font > SHA256SUMS
+      - name: Publish draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/* --draft --verify-tag --title "Vina Ep Kim $GITHUB_REF_NAME" --notes "Vina Ep Kim font release. Restart design applications after installing an update."

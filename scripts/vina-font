@@ -1,0 +1,55 @@
+#!/bin/bash
+set -euo pipefail
+
+action=${1:-status}
+repo=${2:-vinadesignstore/vina-ep-kim}
+file=VinaEpKim-VF.ttf
+target="$HOME/Library/Fonts/$file"
+case "$action" in install|update|status) ;; *) echo "Usage: bash vina-font {install|update|status} [OWNER/REPO]" >&2; exit 2 ;; esac
+[[ $(uname -s) == Darwin ]] || { echo 'This installer supports macOS only.' >&2; exit 1; }
+if [[ "$action" == status ]]; then
+    if [[ -f "$target" ]]; then
+        echo "Installed: $target"
+        shasum -a 256 "$target"
+        echo 'Run update with OWNER/REPO to check the latest public release.'
+    else
+        echo 'Vina Ep Kim is not installed at the managed location.'
+    fi
+    exit 0
+fi
+[[ "$repo" =~ ^[A-Za-z0-9][A-Za-z0-9_.-]*/[A-Za-z0-9][A-Za-z0-9_.-]*$ ]] || {
+    echo 'Provide a GitHub repository as OWNER/REPO.' >&2; exit 2;
+}
+tmp=$(mktemp -d)
+pending=''
+trap 'rm -rf "$tmp"; [[ -z "$pending" ]] || rm -f "$pending"' EXIT
+base="https://github.com/$repo/releases/latest/download"
+for asset in "$file" SHA256SUMS; do
+    curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' \
+        --connect-timeout 15 --max-time 180 "$base/$asset" -o "$tmp/$asset"
+done
+expected=$(awk -v file="$file" '$2 == file { print $1 }' "$tmp/SHA256SUMS")
+[[ "$expected" =~ ^[0-9a-f]{64}$ ]] || { echo 'Invalid release checksum.' >&2; exit 1; }
+actual=$(shasum -a 256 "$tmp/$file" | awk '{print $1}')
+[[ "$actual" == "$expected" ]] || { echo 'Checksum mismatch; installed font unchanged.' >&2; exit 1; }
+signature=$(od -An -tx1 -N4 "$tmp/$file" | tr -d ' \n')
+[[ "$signature" == 00010000 ]] || { echo 'Release is not a TrueType font.' >&2; exit 1; }
+if [[ -f "$target" ]] && cmp -s "$tmp/$file" "$target"; then
+    echo 'Vina Ep Kim is already up to date.'
+    exit 0
+fi
+mkdir -p "$HOME/Library/Fonts"
+if [[ -e "$target" ]]; then
+    backup="$HOME/Library/Application Support/VinaEpKim/backups"
+    mkdir -p "$backup"
+    old=$(shasum -a 256 "$target" | awk '{print $1}')
+    cp -p "$target" "$backup/$old.ttf"
+    echo "Previous font backed up to $backup/$old.ttf"
+fi
+pending=$(mktemp "$HOME/Library/Fonts/.vina-font.XXXXXX")
+cp "$tmp/$file" "$pending"
+chmod 644 "$pending"
+mv -f "$pending" "$target"
+pending=''
+echo "Installed Vina Ep Kim: $target"
+echo 'Restart open design apps. Select Vina Ep Kim if your document uses an older family name.'

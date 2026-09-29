@@ -1,0 +1,10 @@
+.DS_Store
+._*
+.venv/
+__pycache__/
+*.pyc
+*.glyphs.backup
+*.glyphs~
+build/
+.env
+.env.*
