@@ -5,13 +5,20 @@ action=${1:-status}
 repo=${2:-vinadesignstore/vina-ep-kim}
 file=VinaEpKim-VF.ttf
 target="$HOME/Library/Fonts/$file"
-case "$action" in install|update|status) ;; *) echo "Usage: bash vina-font {install|update|status} [OWNER/REPO]" >&2; exit 2 ;; esac
+state="$HOME/Library/Application Support/VinaEpKim"
+case "$action" in install|update|status|version|check) ;; *) echo "Usage: vina-ep-kim {install|update|status|version|check} [OWNER/REPO]" >&2; exit 2 ;; esac
 [[ $(uname -s) == Darwin ]] || { echo 'This installer supports macOS only.' >&2; exit 1; }
-if [[ "$action" == status ]]; then
+if [[ "$action" == status || "$action" == version ]]; then
     if [[ -f "$target" ]]; then
         echo "Installed: $target"
+        actual=$(shasum -a 256 "$target" | awk '{print $1}')
+        if [[ -f "$state/version" && -f "$state/sha256" ]] && [[ $(cat "$state/sha256") == "$actual" ]]; then
+            printf 'Release: %s\n' "$(cat "$state/version")"
+        else
+            echo 'Release: unknown (run vina-ep-kim update to identify it)'
+        fi
         shasum -a 256 "$target"
-        echo 'Run update with OWNER/REPO to check the latest public release.'
+        echo 'Run vina-ep-kim check to compare with the latest public release.'
     else
         echo 'Vina Ep Kim is not installed at the managed location.'
     fi
@@ -24,18 +31,69 @@ tmp=$(mktemp -d)
 pending=''
 trap 'rm -rf "$tmp"; [[ -z "$pending" ]] || rm -f "$pending"' EXIT
 base="https://github.com/$repo/releases/latest/download"
-for asset in "$file" SHA256SUMS; do
-    curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' \
-        --connect-timeout 15 --max-time 180 "$base/$asset" -o "$tmp/$asset"
+download() {
+    if ! curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' \
+        --connect-timeout 15 --max-time 180 "$base/$1" -o "$tmp/$1"; then
+        echo "Could not download release asset: $1" >&2
+        echo "Check your connection and https://github.com/$repo/releases" >&2
+        echo 'A published, non-prerelease version with all installer assets is required.' >&2
+        echo 'A repository or Git tag alone is not enough. Installed font unchanged.' >&2
+        exit 1
+    fi
+}
+for asset in SHA256SUMS VERSION; do
+    download "$asset"
 done
+version_hash=$(awk '$2 == "VERSION" {print $1}' "$tmp/SHA256SUMS")
+[[ "$version_hash" =~ ^[0-9a-f]{64}$ ]] && [[ $(shasum -a 256 "$tmp/VERSION" | awk '{print $1}') == "$version_hash" ]] || {
+    echo 'Invalid release version checksum.' >&2; exit 1;
+}
+version=$(cat "$tmp/VERSION")
+[[ "$version" =~ ^v[0-9][A-Za-z0-9._-]*$ ]] || { echo 'Invalid release version.' >&2; exit 1; }
 expected=$(awk -v file="$file" '$2 == file { print $1 }' "$tmp/SHA256SUMS")
 [[ "$expected" =~ ^[0-9a-f]{64}$ ]] || { echo 'Invalid release checksum.' >&2; exit 1; }
+if [[ "$action" == check ]]; then
+    echo "Latest release: $version"
+    if [[ -f "$target" ]] && [[ $(shasum -a 256 "$target" | awk '{print $1}') == "$expected" ]]; then
+        echo 'Vina Ep Kim is up to date.'
+    else
+        echo 'Run vina-ep-kim update to install this release.'
+    fi
+    exit 0
+fi
+download "$file"
 actual=$(shasum -a 256 "$tmp/$file" | awk '{print $1}')
 [[ "$actual" == "$expected" ]] || { echo 'Checksum mismatch; installed font unchanged.' >&2; exit 1; }
 signature=$(od -An -tx1 -N4 "$tmp/$file" | tr -d ' \n')
 [[ "$signature" == 00010000 ]] || { echo 'Release is not a TrueType font.' >&2; exit 1; }
+if [[ "$action" == install ]]; then
+    command_dir="$HOME/.local/bin"
+    mkdir -p "$command_dir"
+    pending=$(mktemp "$command_dir/.vina-ep-kim.XXXXXX")
+    cp "${BASH_SOURCE[0]}" "$pending"
+    chmod 755 "$pending"
+    mv -f "$pending" "$command_dir/vina-ep-kim"
+    pending=''
+    path_line='export PATH="$HOME/.local/bin:$PATH"'
+    case "${SHELL:-}" in
+        */zsh) profile="$HOME/.zshrc" ;;
+        */bash) profile="$HOME/.bash_profile" ;;
+        *) profile='' ;;
+    esac
+    if [[ -n "$profile" ]]; then
+        if ! grep -Fqx "$path_line" "$profile" 2>/dev/null; then
+            printf '\n%s\n' "$path_line" >> "$profile"
+        fi
+        echo 'Command installed. Open a new terminal, or run: export PATH="$HOME/.local/bin:$PATH"'
+    else
+        echo "Command installed at $command_dir/vina-ep-kim; add $command_dir to your shell PATH."
+    fi
+fi
+mkdir -p "$state"
 if [[ -f "$target" ]] && cmp -s "$tmp/$file" "$target"; then
-    echo 'Vina Ep Kim is already up to date.'
+    printf '%s\n' "$version" > "$state/version"
+    printf '%s\n' "$expected" > "$state/sha256"
+    echo "Vina Ep Kim is already up to date ($version)."
     exit 0
 fi
 mkdir -p "$HOME/Library/Fonts"
@@ -51,5 +109,7 @@ cp "$tmp/$file" "$pending"
 chmod 644 "$pending"
 mv -f "$pending" "$target"
 pending=''
-echo "Installed Vina Ep Kim: $target"
+printf '%s\n' "$version" > "$state/version"
+printf '%s\n' "$expected" > "$state/sha256"
+echo "Installed Vina Ep Kim $version: $target"
 echo 'Restart open design apps. Select Vina Ep Kim if your document uses an older family name.'

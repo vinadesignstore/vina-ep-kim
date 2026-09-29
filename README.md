@@ -1,74 +1,53 @@
-# Vina Ep Kim
+# Vina Ép Kim
 
-Variable typeface with Vietnamese support, upright and italic styles.
+A variable typeface with Vietnamese support, upright and italic styles, and
+weights from Regular (400) to Bold (700).
 
-## Files
+[Download desktop font](https://github.com/vinadesignstore/vina-ep-kim/releases/latest/download/VinaEpKim-VF.ttf) · [Download webfont](https://github.com/vinadesignstore/vina-ep-kim/releases/latest/download/VinaEpKim-VF.woff2) · [All releases](https://github.com/vinadesignstore/vina-ep-kim/releases)
 
-- `sources/VinaEpKim.glyphs`: authoritative editable source; four masters.
-- `fonts/variable/VinaEpKim-VF.ttf`: approved desktop variable font.
-- `fonts/web/VinaEpKim-VF.woff2`: approved web variable font.
-- `release.json`: SHA-256 checksums for this approved snapshot.
+## Install
 
-Axes: `wght` 400-700 and `ital` 0-1. The font contains eight named instances.
+**macOS or Windows:** Download the desktop TTF, open it, and choose **Install**.
+In your design application, select **Vina Ep Kim**. Restart the application if
+the font does not appear.
 
-The installed family is `Vina Ep Kim`; PostScript names use the `VinaEpKim`
-prefix followed by the style. Version numbers belong in version metadata,
-not the family name. Branding may use Vina Ép Kim.
+### macOS Command Line
 
-## Editing And Exports
-
-Open the source in Glyphs 4. Keep experimental exports in `build/`, which is
-excluded from Git. The checked-in binaries are the approved release, not scratch
-exports.
-
-The current export workflow includes a fontTools kerning finalization step after
-Glyphs export. A standalone build command has not yet been migrated to this
-repository. Do not replace the release files with an unchecked native export.
-Before releasing changes, check interpolation, kerning, accent placement,
-Vietnamese normalization, and variable-font rendering across both axes.
-
-## Verify This Snapshot
+Run this once in Terminal to install the font and its update command:
 
 ```sh
-python3 scripts/verify_release.py
+curl --fail --location --proto '=https' --proto-redir '=https' \
+  https://github.com/vinadesignstore/vina-ep-kim/releases/latest/download/vina-font \
+  -o "$HOME/Downloads/vina-font" && bash "$HOME/Downloads/vina-font" install
 ```
 
-This checks file integrity against the release manifest, not visual quality.
-Update the manifest only after approving and validating a new source/export set.
-
-To normalize exported naming metadata, install `fonttools[woff]` in a Python
-virtual environment and run `python scripts/normalize_names.py`. It verifies
-that non-naming tables stay unchanged and refreshes the release checksums.
-
-## Distribution
-
-Releases are intended to be public. A distribution license still needs to be
-selected; public download availability is not an open-source license.
-
-## macOS Install And Update
-
-Download `vina-font` from a published GitHub release, then run:
+Open a new terminal, then use:
 
 ```sh
-bash ~/Downloads/vina-font install
-bash ~/Downloads/vina-font update
-bash ~/Downloads/vina-font status
+vina-ep-kim version  # Show the installed release
+vina-ep-kim check    # Check for an update
+vina-ep-kim update   # Install the latest release
 ```
 
-The default release repository is `vinadesignstore/vina-ep-kim`.
-An optional second argument overrides it as `OWNER/REPO`. No administrator access,
-Python, GitHub login, or package manager is needed. Downloads are checked against
-the release's SHA-256 manifest. Existing managed installations are backed up in
-`~/Library/Application Support/VinaEpKim/backups` before replacement. Other font
-files are not removed. Restart open design apps after updating.
+No administrator access or GitHub account is needed. Updates verify downloaded
+files and back up the previous font. Restart open design apps after updating.
 
-Checksums detect damaged or mismatched downloads, not a compromised publisher.
-Only use releases from the project's trusted repository. `status` reports the
-local file checksum; `update` checks it against the latest published release.
+## Styles
 
-## Publishing
+Regular, Medium, Semibold, and Bold, each with an italic style. Variable-font
+applications can also use intermediate weights (`wght` 400-700) and the italic
+axis (`ital` 0-1). Desktop TTF and web WOFF2 formats are included.
 
-Push an approved `v*` tag to create a draft GitHub release containing the TTF,
-WOFF2, installer, and `SHA256SUMS`. Review it, then publish it. The installer uses
-GitHub's latest published release; drafts and prereleases are not update targets.
-The workflow packages verified exports; it does not rebuild the font source.
+## Help
+
+- **Command not found:** Open a new terminal or run `export PATH="$HOME/.local/bin:$PATH"`.
+- **Unknown version:** Run `vina-ep-kim update` to identify or update a manually installed font.
+- **Download failed:** Check your connection and the [releases page](https://github.com/vinadesignstore/vina-ep-kim/releases). Your installed font is left unchanged.
+- **Still seeing the old font:** Restart the app and reselect **Vina Ep Kim**.
+
+Report problems through [GitHub Issues](https://github.com/vinadesignstore/vina-ep-kim/issues).
+
+## License
+
+No distribution license has been selected. Public availability does not grant
+permission to redistribute or modify the font.

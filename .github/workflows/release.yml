@@ -16,7 +16,8 @@ jobs:
           mkdir dist
           cp fonts/variable/VinaEpKim-VF.ttf fonts/web/VinaEpKim-VF.woff2 scripts/vina-font dist/
           cd dist
-          sha256sum VinaEpKim-VF.ttf VinaEpKim-VF.woff2 vina-font > SHA256SUMS
+          printf '%s\n' "$GITHUB_REF_NAME" > VERSION
+          sha256sum VinaEpKim-VF.ttf VinaEpKim-VF.woff2 vina-font VERSION > SHA256SUMS
       - name: Publish draft release
         env:
           GH_TOKEN: ${{ github.token }}
