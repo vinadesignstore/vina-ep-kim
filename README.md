@@ -38,6 +38,9 @@ Regular, Medium, Semibold, and Bold, each with an italic style. Variable-font
 applications can also use intermediate weights (`wght` 400-700) and the italic
 axis (`ital` 0-1). Desktop TTF and web WOFF2 formats are included.
 
+Enable **Closer i dot** (stylistic set `ss02`) for a lowercase `i` with half
+the usual dot-to-stem gap. The default and star-dot alternate remain available.
+
 ## Help
 
 - **Command not found:** Open a new terminal or run `export PATH="$HOME/.local/bin:$PATH"`.
