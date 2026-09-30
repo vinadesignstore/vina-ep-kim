@@ -70,6 +70,25 @@ turn off both Standard Ligatures and Contextual Alternates, and leave Set 1 off.
 The automatic `vina` shortcut keeps its star-dot `i`, even with Set 2 enabled.
 Disable the shortcut's features to use the closer round dot in that word.
 
+### Stacked Vina Design Store Logo
+
+Type the name in lowercase, with a line break after each word:
+
+```text
+vina
+design
+store
+```
+
+- Set **leading / line height to 75% of the font size**: for example, 100 pt
+  type with 75 pt leading. On the web, use `line-height: 0.75`.
+- Turn off **Standard Ligatures** and **Contextual Alternates** so `vina`
+  does not automatically use the star-dot `i`.
+- Enable **Closer i dot / Set 2 (`ss02`)** for the text.
+- Select only the `g` in `design` and choose its alternate in the Glyphs
+  panel, or apply **Set 1 (`ss01`) to that character only**. Do not enable
+  Set 1 for the whole logo, since it also replaces the `i` with a star-dot form.
+
 ### Contextual @
 
 With Contextual Alternates enabled, `@` adjusts before an uppercase letter,
