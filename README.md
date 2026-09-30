@@ -38,8 +38,72 @@ Regular, Medium, Semibold, and Bold, each with an italic style. Variable-font
 applications can also use intermediate weights (`wght` 400-700) and the italic
 axis (`ital` 0-1). Desktop TTF and web WOFF2 formats are included.
 
-Enable **Closer i dot** (stylistic set `ss02`) for a lowercase `i` with half
-the usual dot-to-stem gap. The default and star-dot alternate remain available.
+## Brand Shortcuts
+
+Type these exact lowercase sequences with **Vina Ep Kim** selected. In apps
+with the relevant OpenType features enabled, the branded forms appear as you
+type; the underlying text stays editable.
+
+![Brand shortcuts: vina becomes the branded word, vn*ds becomes the brand mark, and vndstar becomes a star.](docs/images/brand-shortcuts.png)
+
+| Type | Result | Enable |
+| --- | --- | --- |
+| `vina` | Branded `v` and star-dot `i` | Standard Ligatures (`liga`) or Contextual Alternates (`calt`) |
+| `vn*ds` | A single VNDS brand-mark glyph | Standard Ligatures (`liga`) |
+| `vndstar` | The brand star | Contextual Alternates (`calt`); leave Set 1 off |
+
+Capitalization matters: `VINA` and `VN*DS` do not trigger these shortcuts.
+Plain `vnds` is not a shortcut. To keep `vina` in its normal letterforms,
+turn off both Standard Ligatures and Contextual Alternates, and leave Set 1 off.
+
+## Alternate Characters
+
+![Default characters beside Set 1 alternates, Vietnamese Y variants, and the closer-dot i.](docs/images/stylistic-sets.png)
+
+- **Set 1 (`ss01`):** alternate `g`, star-dot `i`, branded `v`, star-shaped
+  asterisk, star-inside `@`, and alternate `Y`, including `Ý Ỳ Ỷ Ỹ Ỵ`.
+- **Set 2 / Closer i dot (`ss02`):** brings the lowercase `i` dot halfway
+  closer to its stem. Leave Set 1 off to use this instead of the star-dot `i`.
+- **Individual alternates:** use your app's Glyphs or alternates picker to
+  replace only selected characters instead of applying a whole set.
+
+The automatic `vina` shortcut keeps its star-dot `i`, even with Set 2 enabled.
+Disable the shortcut's features to use the closer round dot in that word.
+
+### Contextual @
+
+With Contextual Alternates enabled, `@` adjusts before an uppercase letter,
+including Vietnamese capitals. This also works with the Set 1 star-inside `@`.
+
+![The contextual @ before uppercase VINA, in its normal and star-inside forms.](docs/images/contextual-at.png)
+
+## Using the Features
+
+**Illustrator:** select the text, then open **Window → Type → OpenType**.
+Enable **Standard Ligatures** and **Contextual Alternates** for the shortcuts.
+Use **Stylistic Sets** to select Set 1 or **Closer i dot / Set 2**. For a single
+alternate, open **Window → Type → Glyphs** and choose an alternate for the
+selected character. See Adobe's guides to
+[ligatures](https://helpx.adobe.com/uk/illustrator/desktop/design-with-text/special-characters-glyphs/use-ligatures-and-contextual-alternates.html)
+and [stylistic sets](https://helpx.adobe.com/ca/illustrator/desktop/design-with-text/special-characters-glyphs/add-stylistic-sets-to-selected-text.html).
+
+**Other design apps:** look for OpenType features in the text or typography
+settings. Availability and labels vary; typing a shortcut alone is not enough
+if its feature is disabled or unsupported.
+
+**Web:** after loading the WOFF2 with `@font-face`, apply the features to the
+relevant text:
+
+```css
+.vina { font-family: "Vina Ep Kim", sans-serif; }
+.brand { font-feature-settings: "liga" 1, "calt" 1; }
+.alternates { font-feature-settings: "ss01" 1; }
+.close-dot { font-feature-settings: "ss01" 0, "ss02" 1; }
+.plain { font-feature-settings: "liga" 0, "calt" 0, "ss01" 0; }
+```
+
+Apply `.vina` plus the desired feature class. If combining feature choices,
+include all desired settings in one `font-feature-settings` declaration.
 
 ## Help
 
