@@ -80,6 +80,7 @@ design
 store
 ```
 
+- Use **Semibold (600)** in the upright style.
 - Set **leading / line height to 75% of the font size**: for example, 100 pt
   type with 75 pt leading. On the web, use `line-height: 0.75`.
 - Turn off **Standard Ligatures** and **Contextual Alternates** so `vina`
@@ -88,6 +89,8 @@ store
 - Select only the `g` in `design` and choose its alternate in the Glyphs
   panel, or apply **Set 1 (`ss01`) to that character only**. Do not enable
   Set 1 for the whole logo, since it also replaces the `i` with a star-dot form.
+
+![Stacked Vina Design Store logo in Semibold 600, with 75% line height, closer-dot i, and alternate g.](docs/images/stacked-logo-semibold.png)
 
 ### Contextual @
 
