@@ -17,6 +17,18 @@ tag = ital;
 );
 customParameters = (
 {
+name = license;
+value = "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://openfontlicense.org";
+},
+{
+name = licenseURL;
+value = "https://openfontlicense.org";
+},
+{
+name = fsType;
+value = ();
+},
+{
 name = "Use Typo Metrics";
 value = 1;
 },
@@ -27,6 +39,12 @@ value = 1;
 );
 date = "2026-07-06 01:39:49 +0000";
 familyName = "Vina Ep Kim";
+properties = (
+{
+key = copyrights;
+value = "Copyright 2026 The Vina Ep Kim Project Authors (https://github.com/vinadesignstore/vina-ep-kim)";
+}
+);
 features = (
 {
 code = "sub i by i.ss02;";
