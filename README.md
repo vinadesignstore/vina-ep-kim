@@ -5,6 +5,11 @@ weights from Regular (400) to Bold (700).
 
 [Download desktop font](https://github.com/vinadesignstore/vina-ep-kim/releases/latest/download/VinaEpKim-VF.ttf) · [Download webfont](https://github.com/vinadesignstore/vina-ep-kim/releases/latest/download/VinaEpKim-VF.woff2) · [All releases](https://github.com/vinadesignstore/vina-ep-kim/releases)
 
+**New in [v1.2.0](https://github.com/vinadesignstore/vina-ep-kim/releases/tag/v1.2.0):**
+the symmetrical `Y` is now the default, including `Ý Ỳ Ỷ Ỹ Ỵ`, across all
+weights and italic styles. The previous asymmetric design is available in
+**Set 1 (`ss01`)**. Run `vina-ep-kim update` or download the latest font above.
+
 ## Install
 
 **macOS or Windows:** Download the desktop TTF, open it, and choose **Install**.
@@ -57,6 +62,10 @@ Plain `vnds` is not a shortcut. To keep `vina` in its normal letterforms,
 turn off both Standard Ligatures and Contextual Alternates, and leave Set 1 off.
 
 ## Alternate Characters
+
+**Default:** symmetrical `Y Ý Ỳ Ỷ Ỹ Ỵ`, with Set 1 off.
+**Set 1:** the previous asymmetric forms. In the specimen below, defaults are
+black on the left; alternates are green on the right.
 
 ![Default characters beside Set 1 alternates, Vietnamese Y variants, and the closer-dot i.](docs/images/stylistic-sets.png)
 
