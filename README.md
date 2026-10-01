@@ -1,14 +1,19 @@
 # Vina Ép Kim
 
-A variable typeface with Vietnamese support, upright and italic styles, and
+A variable typeface with Vietnamese support, upright styles, and
 weights from Regular (400) to Bold (700).
 
 [Download desktop font](https://github.com/vinadesignstore/vina-ep-kim/releases/latest/download/VinaEpKim-VF.ttf) · [Download webfont](https://github.com/vinadesignstore/vina-ep-kim/releases/latest/download/VinaEpKim-VF.woff2) · [All releases](https://github.com/vinadesignstore/vina-ep-kim/releases)
 
-**New in [v1.2.0](https://github.com/vinadesignstore/vina-ep-kim/releases/tag/v1.2.0):**
-the symmetrical `Y` is now the default, including `Ý Ỳ Ỷ Ỹ Ỵ`, across all
-weights and italic styles. The previous asymmetric design is available in
-**Set 1 (`ss01`)**. Run `vina-ep-kim update` or download the latest font above.
+**New in [v2.0.0](https://github.com/vinadesignstore/vina-ep-kim/releases/tag/v2.0.0):**
+upright-only variable font, revised `K` and `k`, refined Vietnamese accents,
+and updated number spacing. The symmetrical `Y` remains the default.
+Run `vina-ep-kim update` or download the latest font above.
+
+**Upgrading:** italic styles and the `ital` axis have been removed. Existing
+documents using italic may need adjustment. Keep
+[v1.2.0](https://github.com/vinadesignstore/vina-ep-kim/releases/tag/v1.2.0)
+for projects that require the previous italic styles.
 
 ## Install
 
@@ -39,9 +44,10 @@ files and back up the previous font. Restart open design apps after updating.
 
 ## Styles
 
-Regular, Medium, Semibold, and Bold, each with an italic style. Variable-font
-applications can also use intermediate weights (`wght` 400-700) and the italic
-axis (`ital` 0-1). Desktop TTF and web WOFF2 formats are included.
+Regular, Medium, Semibold, and Bold. Variable-font applications can also use
+intermediate weights (`wght` 400-700). Desktop TTF and web WOFF2 formats are
+included. The current source is upright-only: italic masters and the `ital`
+axis are no longer maintained. Older releases may still include them.
 
 ## Brand Shortcuts
 
@@ -49,7 +55,7 @@ Type these exact lowercase sequences with **Vina Ep Kim** selected. In apps
 with the relevant OpenType features enabled, the branded forms appear as you
 type; the underlying text stays editable.
 
-![Brand shortcuts: vina becomes the branded word, vn*ds becomes the brand mark, and vndstar becomes a star.](docs/images/brand-shortcuts.png)
+![Brand shortcuts: vina becomes the branded word, vn*ds becomes the brand mark, and vndstar becomes a star.](docs/images/brand-shortcuts-v2.0.0.png)
 
 | Type | Result | Enable |
 | --- | --- | --- |
@@ -67,7 +73,7 @@ turn off both Standard Ligatures and Contextual Alternates, and leave Set 1 off.
 **Set 1:** the previous asymmetric forms. In the specimen below, defaults are
 black on the left; alternates are green on the right.
 
-![Default symmetrical Y on the left, Set 1 asymmetric Y on the right, other Set 1 alternates, and the closer-dot i.](docs/images/stylistic-sets-v1.2.0.png)
+![Default symmetrical Y on the left, Set 1 asymmetric Y on the right, other Set 1 alternates, and the closer-dot i.](docs/images/stylistic-sets-v2.0.0.png)
 
 - **Set 1 (`ss01`):** alternate `g`, star-dot `i`, branded `v`, star-shaped
   asterisk, star-inside `@`, and the original asymmetric `Y`, including
@@ -101,14 +107,14 @@ store
   panel, or apply **Set 1 (`ss01`) to that character only**. Do not enable
   Set 1 for the whole logo, since it also replaces the `i` with a star-dot form.
 
-![Stacked logo in Semibold 600 with 75% line height: branded vina with star-dot i; design with closer-dot i and alternate g.](docs/images/stacked-logo-semibold.png)
+![Stacked logo in Semibold 600 with 75% line height: branded vina with star-dot i; design with closer-dot i and alternate g.](docs/images/stacked-logo-semibold-v2.0.0.png)
 
 ### Contextual @
 
 With Contextual Alternates enabled, `@` adjusts before an uppercase letter,
 including Vietnamese capitals. This also works with the Set 1 star-inside `@`.
 
-![The contextual @ before uppercase VINA, in its normal and star-inside forms.](docs/images/contextual-at.png)
+![The contextual @ before uppercase VINA, in its normal and star-inside forms.](docs/images/contextual-at-v2.0.0.png)
 
 ## Using the Features
 
