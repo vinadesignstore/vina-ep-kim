@@ -67,7 +67,7 @@ turn off both Standard Ligatures and Contextual Alternates, and leave Set 1 off.
 **Set 1:** the previous asymmetric forms. In the specimen below, defaults are
 black on the left; alternates are green on the right.
 
-![Default characters beside Set 1 alternates, Vietnamese Y variants, and the closer-dot i.](docs/images/stylistic-sets.png)
+![Default symmetrical Y on the left, Set 1 asymmetric Y on the right, other Set 1 alternates, and the closer-dot i.](docs/images/stylistic-sets-v1.2.0.png)
 
 - **Set 1 (`ss01`):** alternate `g`, star-dot `i`, branded `v`, star-shaped
   asterisk, star-inside `@`, and the original asymmetric `Y`, including
