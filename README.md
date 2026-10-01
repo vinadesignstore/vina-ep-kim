@@ -61,7 +61,8 @@ turn off both Standard Ligatures and Contextual Alternates, and leave Set 1 off.
 ![Default characters beside Set 1 alternates, Vietnamese Y variants, and the closer-dot i.](docs/images/stylistic-sets.png)
 
 - **Set 1 (`ss01`):** alternate `g`, star-dot `i`, branded `v`, star-shaped
-  asterisk, star-inside `@`, and alternate `Y`, including `Ý Ỳ Ỷ Ỹ Ỵ`.
+  asterisk, star-inside `@`, and the original asymmetric `Y`, including
+  `Ý Ỳ Ỷ Ỹ Ỵ`. The symmetrical `Y` is the default; no feature is needed.
 - **Set 2 / Closer i dot (`ss02`):** brings the lowercase `i` dot halfway
   closer to its stem. Leave Set 1 off to use this instead of the star-dot `i`.
 - **Individual alternates:** use your app's Glyphs or alternates picker to

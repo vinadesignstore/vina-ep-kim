@@ -1,8 +1,8 @@
 {
-  "snapshot": "2026-09-30",
+  "snapshot": "2026-10-01",
   "sha256": {
-    "sources/VinaEpKim.glyphs": "c1368f89981f0a2173b56952686a4d3740ad0a85ac90fcd3b97525af4840fdd3",
-    "fonts/variable/VinaEpKim-VF.ttf": "bba643ad0e6d186d9353e07b0ceee84b2f61624adbcb278944ef8ceb5a74ff21",
-    "fonts/web/VinaEpKim-VF.woff2": "54e6aae7044f352563c795d82c047822d70bec4e2b9971287fc5f269f8b5c6c9"
+    "sources/VinaEpKim.glyphs": "4963abb96de361dad2ddf96ea9ad880ac8dcb1a0d2c9b012edc6d44b2270fddd",
+    "fonts/variable/VinaEpKim-VF.ttf": "a4f08f8df1c9ff02a80dc665f617fb2372fd8124c1fdb22ff041983bec52c831",
+    "fonts/web/VinaEpKim-VF.woff2": "2e2636ac6a5f45e95da4622d6d3f552959433a1f98891ea9f194bbad4a4385da"
   }
 }
