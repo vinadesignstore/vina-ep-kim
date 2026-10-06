@@ -38,3 +38,18 @@ The command installs into `~/.local/bin` and adds PATH once to `.zshrc` or
 in `~/Library/Application Support/VinaEpKim/backups`. The command updates the
 font only; rerun setup to update the command. An optional second argument
 overrides the default repository using `OWNER/REPO`.
+
+## Brand package update requests
+
+[Request brand font update](.github/workflows/notify-brand.yml) asks the private
+`vinadesignstore/vnds-core` repository to open a font-update PR after a stable
+release is published. Drafts and prereleases are ignored. Only a dispatch request
+runs here; the private repo owns synchronization, checks, and the review PR.
+
+Follow the [brand package setup guide](https://github.com/vinadesignstore/vnds-core/blob/main/packages/brand/README.md#automatic-update-requests)
+to configure `BRAND_SYNC_TOKEN` in this repo and merge the receiver first.
+You can rerun delivery using **Actions → Request brand font update → Run workflow**.
+Do this manually if a release was published using another workflow's
+`GITHUB_TOKEN`, which may suppress downstream release events. Merging the update
+PR does not publish the brand npm package. Font releases and macOS updates remain
+independent of that review.

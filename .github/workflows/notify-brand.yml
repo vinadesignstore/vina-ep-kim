@@ -1,0 +1,27 @@
+name: Request brand font update
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    if: github.event_name == 'workflow_dispatch' || (!github.event.release.draft && !github.event.release.prerelease)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Request an update PR in vnds-core
+        env:
+          GH_TOKEN: ${{ secrets.BRAND_SYNC_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo '::error::Set BRAND_SYNC_TOKEN using the setup instructions in the brand package README.'
+            exit 1
+          fi
+          gh api --method POST repos/vinadesignstore/vnds-core/dispatches \
+            -f event_type=vina-ep-kim-released
+          echo 'Brand update requested. Check the private vnds-core Actions page for the resulting PR.' >> "$GITHUB_STEP_SUMMARY"
